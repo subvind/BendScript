@@ -1,0 +1,4 @@
+// Start
+(function () {
+  return { "arr": [1,2,3], "obj": { "num": 666 } };
+})()

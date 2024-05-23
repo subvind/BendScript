@@ -1,0 +1,28 @@
+interface _Person_ {
+  name: String,
+  age: Number
+}
+
+// Define a record for Person
+class Person {
+  name: String
+  age: Number
+
+  constructor(obj: _Person_) {
+    this.name = obj.name;
+    this.age = obj.age;
+  }
+
+  greet() {
+    return `Hello, ${this.name}!`
+  }
+}
+
+// Create a Person record
+let person1 = new Person({ name: "Alice", age: 30 });
+let person2 = new Person({ name: "Bob", age: 33 });
+
+// Start
+(function () {
+  return `${person1.greet()} and ${person2.greet()}`;
+})()

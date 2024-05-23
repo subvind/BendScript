@@ -1,0 +1,4 @@
+// Start
+(function () {
+  return "Hello, World!";
+})()
