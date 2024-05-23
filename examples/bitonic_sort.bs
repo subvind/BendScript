@@ -1,0 +1,95 @@
+// Implements bitonic sort on a list of numbers encoded as a tree of pairs.
+// https://en.wikipedia.org/wiki/Bitonic_sorter
+// Because we can't know when a tree of pairs is a leaf or a node, we pass the depth everywhere.
+
+// Generates a tree of pairs with depth 'd' with numbers from 2^d to 0 at the leaves
+
+import { Bend, Switch } from '../script';
+
+function gen(d) {
+  new Bend({ d, x: 0 }, (bend: Bend) => {
+    return bend
+      .when(`d > 20`, function (that) {
+        return [
+          this.fork(
+            that.d - 1,
+            that.x * 2 + 1
+          ),
+          this.fork(
+            that.d - 1,
+            that.x * 2
+          )
+        ]
+      })
+      .else(function (that) {
+        return that.x
+      });
+  })
+}
+
+// Adds all the numbers in a tree of pairs of depth 'd'
+function sum(d, t): any {
+  new Switch({ d }, (swit: Switch) => {
+    return swit
+      .case(`0`, function () {
+        return t
+      })
+      .case(`_`, function () {
+        [t.a, t.b] = t
+        return sum(d-1, t.a) + sum(d-1, t.b)
+      })
+  })
+}
+
+// Conditionally swaps the values of a pair
+function swap(s, a, b) {
+  if s:
+    return (b,a)
+  else:
+    return (a,b)
+}
+
+function warp(d, s, a, b) {
+  switch d:
+    case 0:
+      return swap(s + (a > b), a, b)
+    case _:
+      (a.a,a.b) = a
+      (b.a,b.b) = b
+      (A.a,A.b) = warp(d-1, s, a.a, b.a)
+      (B.a,B.b) = warp(d-1, s, a.b, b.b)
+      return ((A.a,B.a),(A.b,B.b))
+}
+
+function flow(d, s, t) {
+  switch d:
+    case 0:
+      return t
+    case _:
+      (t.a, t.b) = t
+      return down(d, s, warp(d-1, s, t.a, t.b))
+}
+
+function down(d,s,t) {
+  switch d:
+    case 0:
+      return t
+    case _:
+      (t.a, t.b) = t
+      return (flow(d-1, s, t.a), flow(d-1, s, t.b))
+}
+
+// Bitonic sort
+function sort(d, s, t) {
+  switch d:
+    case 0:
+      return t
+    case _:
+      (t.a, t.b) = t
+      return flow(d, s, (sort(d-1, 0, t.a), sort(d-1, 1, t.b)))
+}
+
+(function () {
+  // Generate a reverse sorted tree of numbers, sort them and then add them up
+  return sum(18, sort(18, 0, gen(18)))
+})()
