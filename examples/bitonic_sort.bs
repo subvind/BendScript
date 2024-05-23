@@ -9,7 +9,7 @@ import { Bend, Switch } from '../script';
 function gen(d) {
   new Bend({ d, x: 0 }, (bend: Bend) => {
     return bend
-      .when(`d > 20`, function (that) {
+      .when(`d > 20`, (that) => {
         return [
           this.fork(
             that.d - 1,
@@ -21,7 +21,7 @@ function gen(d) {
           )
         ]
       })
-      .else(function (that) {
+      .else((that) => {
         return that.x
       });
   })
@@ -31,10 +31,10 @@ function gen(d) {
 function sum(d, t): any {
   new Switch({ d }, (swit: Switch) => {
     return swit
-      .case(`0`, function () {
+      .case(`0`, () => {
         return t
       })
-      .case(`_`, function () {
+      .case(`_`, () => {
         [t.a, t.b] = t
         return sum(d-1, t.a) + sum(d-1, t.b)
       })
@@ -43,22 +43,27 @@ function sum(d, t): any {
 
 // Conditionally swaps the values of a pair
 function swap(s, a, b) {
-  if s:
-    return (b,a)
-  else:
-    return (a,b)
+  if (s) {
+    return [b,a]
+  } else {
+    return [a,b]
+  }
 }
 
-function warp(d, s, a, b) {
-  switch d:
-    case 0:
-      return swap(s + (a > b), a, b)
-    case _:
-      (a.a,a.b) = a
-      (b.a,b.b) = b
-      (A.a,A.b) = warp(d-1, s, a.a, b.a)
-      (B.a,B.b) = warp(d-1, s, a.b, b.b)
-      return ((A.a,B.a),(A.b,B.b))
+function warp(d, s, a: any, b): any {
+  new Switch({ d }, (swit: Switch) => {
+    return swit
+      .case(`0`, () => {
+        return swap(s + (a > b), a, b)
+      })
+      .case(`_`, () => {
+        /*{*/let A, B;/*}*/
+        [a.a, a.b] = a;
+        [b.a,b.b] = b;
+        [A.a,A.b] = warp(d-1, s, a.a, b.a);
+        [B.a,B.b] = warp(d-1, s, a.b, b.b);
+        return [[A.a,B.a], [A.b,B.b]];
+      })
 }
 
 function flow(d, s, t) {
