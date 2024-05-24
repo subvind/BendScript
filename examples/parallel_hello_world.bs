@@ -1,52 +1,49 @@
 // A very simple example of a massively parallel program
 // Creates a tree with numbers and then sums all values in parallel
 
-/*{*/import { Switch, Fold, Bend, Type, Grow, recursive } from '../script';/*}*/
+/*{*/
+  import { swit, fold, bend, type, branch, recursive } from '../script';
+/*}*/
 
 // a binary tree
-new Type(`MyTree`, (type: Type) => {
-  return type
-    .branch(`Node`, () => {
-      return [
-        'val', 
-        recursive('left'),
-        recursive('right'),
-      ]
-    })
-    .branch(`Leaf`, () => {
-      return []
-    })
-})
+type.tree(`MyTree`)
+  .branch(`Node`, () => {
+    return [
+      'val', 
+      recursive('left'),
+      recursive('right'),
+    ]
+  })
+  .branch(`Leaf`, () => {
+    return []
+  })
 
 // sums all values in a tree
 function sum(tree) {
-  new Fold(`tree`, (fold: Fold) => {
-    return fold
-      .case(`MyTree/Node`, () => {
-        return tree.val + tree.left + tree.right
-      })
-      .case(`MyTree/Leaf`, () => {
-        return 0
-      })
-  })
+  fold.script(`tree`)
+    .case(`MyTree/Node`, () => {
+      return tree.val + tree.left + tree.right
+    })
+    .case(`MyTree/Leaf`, () => {
+      return 0
+    })
 }
 
 // generates a binary tree of given depth
 function gen(depth) {
   /*{*/let tree;/*}*/
-  new Bend({ height: 0, val: 1 }, (bend: Bend) => {
-    return bend
-      .when(`height < depth`, (that) => {
-        tree = new Grow(`MyTree/Node`, { 
-          val: that.val, 
-          left: this.fork(that.height + 1, 2 * that.val), 
-          right: this.fork(that.height + 1, 2 * that.val + 1)
-        })
+  bend.script({ height: 0, val: 1 })
+    .when(`height < depth`, (that) => {
+      tree = branch.grow(`MyTree/Node`, { 
+        val: that.val, 
+        left: this.fork(that.height + 1, 2 * that.val), 
+        right: this.fork(that.height + 1, 2 * that.val + 1)
       })
-      .else((that) => {
-        tree = new Grow(`MyTree/Leaf`, {})
-      });
-  })
+    })
+    .else((that) => {
+      tree = branch.grow(`MyTree/Leaf`, {})
+    });
+
   return tree
 }
 

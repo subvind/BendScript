@@ -5,16 +5,14 @@ interface _Init_ {
 
 class Switch {
   init: any
-  callback: Function
 
-  constructor(init: _Init_, callback: Function) {
-    this.callback = callback
+  constructor() {
+    return this;
+  }
 
-    for (const iterator in init) {
-      this.init[iterator] = init
-    }
-
-    this.callback(this)
+  ch (init: _Init_) {
+    this.init = init;
+    return this;
   }
 
   case (instance: String, callback: Function) {

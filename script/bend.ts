@@ -5,26 +5,24 @@ interface _Init_ {
 
 class Bend {
   init: any
-  callback: Function
 
-  constructor(init: _Init_, callback: Function) {
-    this.callback = callback
+  constructor() {
+    return this;
+  }
 
-    for (const iterator in init) {
-      this.init[iterator] = init
-    }
-
-    this.callback(this)
+  script (init: _Init_) {
+    this.init = init;
+    return this;
   }
 
   when (_case: String, callback: Function) {
-    callback(this.init).bind(this)
-    return this
+    callback(this.init).bind(this);
+    return this;
   }
 
   else (callback: Function) {
-    callback(this.init).bind(this)
-    return this
+    callback(this.init).bind(this);
+    return this;
   }
 }
 

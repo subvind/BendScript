@@ -1,13 +1,14 @@
 
 class Fold {
   init: string
-  callback: Function
 
-  constructor(init: string, callback: Function) {
+  constructor() {
+    return this;
+  }
+
+  script (init: string) {
     this.init = init;
-    this.callback = callback
-
-    this.callback(this)
+    return this;
   }
 
   case (instance: string, callback: Function) {

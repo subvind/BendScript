@@ -1,12 +1,13 @@
 class Type {
   name: string
-  callback: Function
 
-  constructor(name: string, callback: Function) {
-    this.name = name
-    this.callback = callback
+  constructor() {
+    return this
+  }
 
-    this.callback(this)
+  tree (name: string) {
+    this.name = name;
+    return this;
   }
 
   branch (name: String, callback: Function) {
