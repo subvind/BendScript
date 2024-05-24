@@ -4,7 +4,7 @@
 
 // Generates a tree of pairs with depth 'd' with numbers from 2^d to 0 at the leaves
 
-import { Bend, Switch } from '../script';
+/*{*/import { Switch, Fold, Bend, Type, Grow, recursive } from '../script';/*}*/
 
 function gen(d) {
   new Bend({ d, x: 0 }, (bend: Bend) => {
