@@ -1,11 +1,18 @@
 import assert from "assert"
 import transpiler from "../transpiler/index.js"
 
-describe("JSON", () => {
-  it("compiles data to json formatted data", () => {
-    const inputText = '{ "arr": [1,2,3], "obj": { "num": 666 } }';
-    const outputText = '{"arr":[1,2,3],"obj":{"num":666}}';
-    const result = transpiler.eval.json(inputText)
+const inputText = `function add(a, b) {
+  let c = a + b;
+  return c;
+}`;
+const outputText = `def add(a, b):
+  c = a = b
+  return c`;
+describe("BendScript", () => {
+  it("compiles js function to bend def", () => {
+    const result = transpiler.eval.lang(inputText)
+
+    console.log("errors:", result.parseErrors)
 
     assert.equal(result.lexErrors.length, 0)
     assert.equal(result.parseErrors.length, 0)

@@ -12,8 +12,6 @@ export const RSquare = createToken({ name: "RSquare", pattern: /\]/ })
 export const Comma = createToken({ name: "Comma", pattern: /,/ })
 export const Colon = createToken({ name: "Colon", pattern: /\:/ })
 export const SemiColon = createToken({ name: "SemiColon", pattern: /\;/ })
-export const Function = createToken({ name: "Function", pattern: /function/ })
-export const Var = createToken({ name: "Var", pattern: /var/ })
 
 export const StringLiteral = createToken({
   name: "StringLiteral",
