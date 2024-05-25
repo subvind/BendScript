@@ -1,3 +1,7 @@
+import { Parser } from "acorn";
+// import acornJsx from 'acorn-jsx';
+// import acornBigInt from 'acorn-bigint';
+
 import { lexer } from "../lexer/json.js"
 import { parser } from "../parser/json.js"
 import { interpreter } from "../interpreter/json.js"
@@ -24,21 +28,20 @@ export function json (text) {
   }
 }
 
-import { parseInput, createAST } from "../ast/lang.js"
-import { ASTVisitor } from "../visitor/lang.js"
-
 export function lang (text) {
-  // const input = `
-  // function add(a, b) {
-  //   let c = a + b;
-  //   return c;
-  // }
-  // `;
   
-  const cst = parseInput(text);
-  const ast = createAST(cst);
-  const visitor = new ASTVisitor();
-  const bendCode = ast.map(node => visitor.visit(node)).join("\n");
+  const MyParser = Parser.extend(
+    // acornJsx(),
+    // acornBigInt
+  )
+  let bendCode = MyParser.parse(text, {
+    ecmaVersion: 'latest'
+  });
+
+  // const cst = parseInput(text);
+  // const ast = createAST(cst);
+  // const visitor = new ASTVisitor();
+  // const bendCode = ast.map(node => visitor.visit(node)).join("\n");
   
   return bendCode
 }

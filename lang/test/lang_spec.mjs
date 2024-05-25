@@ -6,13 +6,13 @@ const inputText = `function add(a, b) {
   return c;
 }`;
 const outputText = `def add(a, b):
-  c = a = b
+  c = a + b
   return c`;
 describe("BendScript", () => {
   it("compiles js function to bend def", () => {
     const result = transpiler.eval.lang(inputText)
 
-    console.log("errors:", result.parseErrors)
+    console.log("result", JSON.stringify(result, null, 2))
 
     assert.equal(result.lexErrors.length, 0)
     assert.equal(result.parseErrors.length, 0)
