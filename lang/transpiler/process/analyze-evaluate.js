@@ -1,4 +1,5 @@
 import { Parser } from "acorn";
+import { Compile } from "../compile/lang.js"
 // import acornJsx from 'acorn-jsx';
 // import acornBigInt from 'acorn-bigint';
 
@@ -34,14 +35,16 @@ export function lang (text) {
     // acornJsx(),
     // acornBigInt
   )
-  let bendCode = MyParser.parse(text, {
+  let ast = MyParser.parse(text, {
     ecmaVersion: 'latest'
   });
 
-  // const cst = parseInput(text);
-  // const ast = createAST(cst);
-  // const visitor = new ASTVisitor();
-  // const bendCode = ast.map(node => visitor.visit(node)).join("\n");
-  
-  return bendCode
+  let bend = new Compile(ast);
+  let bs = bend.script;
+
+  return {
+    value: bs,
+    lexErrors: [], // Assuming you don't have lexical errors handling here
+    parseErrors: [], // Assuming you don't have parsing errors handling here
+  }
 }
