@@ -2,6 +2,5 @@ BendScript
 ========
 A programming language that:
 - has syntax like TypeScript,
-- transpiles to bend-lang,
-- runs fast within rust, and
+- transpiles to bend-lang, and
 - has batteries included.

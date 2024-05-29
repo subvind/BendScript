@@ -8,3 +8,6 @@ rustup -v install  nightly
 # install rust package
 cargo +nightly install hvm
 cargo +nightly install bend-lang
+
+# next
+read EXAMPLES.md
