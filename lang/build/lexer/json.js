@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.lexer = exports.allTokens = exports.WhiteSpace = exports.Var = exports.True = exports.StringLiteral = exports.SemiColon = exports.RSquare = exports.RCurly = exports.NumberLiteral = exports.Null = exports.LSquare = exports.LCurly = exports.Function = exports.False = exports.Comma = exports.Colon = void 0;
+exports.lexer = exports.allTokens = exports.WhiteSpace = exports.True = exports.StringLiteral = exports.SemiColon = exports.RSquare = exports.RCurly = exports.NumberLiteral = exports.Null = exports.LSquare = exports.LCurly = exports.False = exports.Comma = exports.Colon = void 0;
 var _chevrotain = require("chevrotain");
 // ----------------- lexer -----------------
 const True = exports.True = (0, _chevrotain.createToken)({
@@ -45,14 +45,6 @@ const Colon = exports.Colon = (0, _chevrotain.createToken)({
 const SemiColon = exports.SemiColon = (0, _chevrotain.createToken)({
   name: "SemiColon",
   pattern: /\;/
-});
-const Function = exports.Function = (0, _chevrotain.createToken)({
-  name: "Function",
-  pattern: /function/
-});
-const Var = exports.Var = (0, _chevrotain.createToken)({
-  name: "Var",
-  pattern: /var/
 });
 const StringLiteral = exports.StringLiteral = (0, _chevrotain.createToken)({
   name: "StringLiteral",
