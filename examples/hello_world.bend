@@ -1,3 +1,3 @@
 # Start
 def main():
-  return "Hello, world!"
+  return "Hello, World!"
