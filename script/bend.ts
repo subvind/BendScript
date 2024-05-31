@@ -10,7 +10,7 @@ class Bend {
     return this;
   }
 
-  script (init: _Init_) {
+  loop (init: _Init_) {
     this.init = init;
     return this;
   }

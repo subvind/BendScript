@@ -5,13 +5,12 @@ class Type {
     return this
   }
 
-  tree (name: string) {
+  loop (name: string) {
     this.name = name;
     return this;
   }
 
-  branch (name: String, callback: Function) {
-    callback().bind(this)
+  branch (name: String, branches: any[] | []) {
     return this
   }
 }

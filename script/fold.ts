@@ -6,7 +6,7 @@ class Fold {
     return this;
   }
 
-  script (init: string) {
+  loop (init: string) {
     this.init = init;
     return this;
   }

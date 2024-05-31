@@ -9,7 +9,7 @@
 /*}*/
 
 function gen(d) {
-  bend.script({ d, x: 0 })
+  bend.loop({ d, x: 0 })
     .when(`d > 20`, (that) => {
       return [
         this.fork(

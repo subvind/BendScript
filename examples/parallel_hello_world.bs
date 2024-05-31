@@ -6,21 +6,17 @@
 /*}*/
 
 // a binary tree
-type.tree(`MyTree`)
-  .branch(`Node`, () => {
-    return [
-      'val', 
-      recursive('left'),
-      recursive('right'),
-    ]
-  })
-  .branch(`Leaf`, () => {
-    return []
-  })
+type.loop(`MyTree`)
+  .branch(`Node`, [
+    'val', 
+    recursive('left'),
+    recursive('right'),
+  ])
+  .branch(`Leaf`, [])
 
 // sums all values in a tree
 function sum(tree) {
-  fold.script(`tree`)
+  fold.loop(`tree`)
     .case(`MyTree/Node`, () => {
       return tree.val + tree.left + tree.right
     })
@@ -32,7 +28,7 @@ function sum(tree) {
 // generates a binary tree of given depth
 function gen(depth) {
   /*{*/let tree;/*}*/
-  bend.script({ height: 0, val: 1 })
+  bend.loop({ height: 0, val: 1 })
     .when(`height < depth`, (that) => {
       tree = branch.grow(`MyTree/Node`, { 
         val: that.val, 
